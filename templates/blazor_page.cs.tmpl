@@ -2,5 +2,18 @@ namespace ${namespace}
 {
     public partial class ${classname}
     {
+        [Parameter]
+        public string? SampleParameter { get; set; }
+
+        [Inject]
+        public NavigationManager NavigationManager { get; set; } = default!;
+    
+        protected override void OnInitialized()
+        {
+        }
+
+        protected override void OnParametersSet()
+        {
+        }
     }
 }

@@ -13,6 +13,17 @@
             "label": "build",
             "command": "yarn",
             "type": "shell",
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-lc"
+                    ]
+                },
+                "env": {
+                    "PATH": "/home/borysr/.local/share/nvm/v24.12.0/bin:${env:PATH}"
+                }
+            },
             "args": [
                 "run",
                 "compile"
@@ -26,6 +37,17 @@
             "label": "buildDev",
 			"command": "yarn",
 			"type": "shell",
+            "options": {
+                "shell": {
+                    "executable": "/bin/bash",
+                    "args": [
+                        "-lc"
+                    ]
+                },
+                "env": {
+                    "PATH": "/home/borysr/.local/share/nvm/v24.12.0/bin:${env:PATH}"
+                }
+            },
 			"args": [
 				"run",
 				"compileDev"
