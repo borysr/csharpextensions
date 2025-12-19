@@ -11,6 +11,8 @@ export enum TemplateType {
     XUnit,
     RazorPageClass,
     RazorPageTemplate,
+    BlazorPage,
+    BlazorPageClass,
     UWPPageClass,
     UWPPageXml,
     UWPResource,

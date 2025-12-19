@@ -20,6 +20,7 @@ export function createExtensionMappings(): Map<string, CommandMapping> {
     mapping.set('Controller', getCommandMapping('createController', [TemplateType.Controller]));
     mapping.set('ApiController', getCommandMapping('createApiController', [TemplateType.ApiController]));
     mapping.set('Razor_Page', getCommandMapping('createRazorPage', [TemplateType.RazorPageClass, TemplateType.RazorPageTemplate]));
+    mapping.set('BlazorPage', getCommandMapping('createBlazorPage', [TemplateType.BlazorPage, TemplateType.BlazorPageClass]));
     mapping.set('XUnit', getCommandMapping('createXUnitTest', [TemplateType.XUnit]));
     mapping.set('NUnit', getCommandMapping('createNUnitTest', [TemplateType.NUnit]));
     mapping.set('MSTest', getCommandMapping('createMSTest', [TemplateType.MsTest]));

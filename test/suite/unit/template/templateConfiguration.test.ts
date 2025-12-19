@@ -18,6 +18,8 @@ suite('TemplateConfiguration', () => {
         TemplateType.XUnit,
         TemplateType.RazorPageClass,
         TemplateType.RazorPageTemplate,
+        TemplateType.BlazorPage,
+        TemplateType.BlazorPageClass,
         TemplateType.UWPPageClass,
         TemplateType.UWPPageXml,
         TemplateType.UWPResource,
@@ -149,6 +151,8 @@ function getRequiredImports(type: TemplateType): Array<string> {
         case TemplateType.UWPPageClass:
         case TemplateType.UWPUserControllClass:
         case TemplateType.UWPWindowClass:
+        case TemplateType.BlazorPage:
+        case TemplateType.BlazorPageClass:
             expectedRequired = [];
             break;
         case TemplateType.Controller:
@@ -235,6 +239,8 @@ function getOptionalImports(type: TemplateType): Array<string> {
         case TemplateType.UWPUserControllXml:
         case TemplateType.UWPWindowXml:
         case TemplateType.UWPPageXml:
+        case TemplateType.BlazorPage:
+        case TemplateType.BlazorPageClass:
         case TemplateType.RazorPageTemplate:
         case TemplateType.UWPResource:
             optionalImports = [];

@@ -34,7 +34,13 @@ Please report issues using the following this [link](https://github.com/bard83/c
 
 This extension traverses up the folder tree to find the project.json or *.csproj and uses that as the parent folder to determine namespaces.
 
+Additional file templates are available from the "New C#" menu, including Razor Page and Blazor Page creation.
+
 -----------------------------------------------------------------------------------------------------------
+
+## Testing
+
+The `yarn test` script runs a pretest cleanup that removes temporary `.csproj` fixtures from `out/test/suite` to keep `CsprojReader` tests deterministic.
 
 ## Licence
 

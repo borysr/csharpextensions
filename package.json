@@ -33,6 +33,7 @@
         "onCommand:csharpextensions.createController",
         "onCommand:csharpextensions.createApiController",
         "onCommand:csharpextensions.createRazorPage",
+        "onCommand:csharpextensions.createBlazorPage",
         "onCommand:csharpextensions.createUwpPage",
         "onCommand:csharpextensions.createUwpWindow",
         "onCommand:csharpextensions.createUwpUserControl",
@@ -78,6 +79,10 @@
             {
                 "command": "csharpextensions.createRazorPage",
                 "title": "Razor Page"
+            },
+            {
+                "command": "csharpextensions.createBlazorPage",
+                "title": "Blazor Page"
             },
             {
                 "command": "csharpextensions.createUwpPage",
@@ -170,6 +175,10 @@
                     "command": "csharpextensions.createRazorPage"
                 },
                 {
+                    "group": "10_mvc@3",
+                    "command": "csharpextensions.createBlazorPage"
+                },
+                {
                     "group": "20_uwp@0",
                     "command": "csharpextensions.createUwpPage"
                 },
@@ -248,6 +257,7 @@
         "compileDev": "tsc -p ./ && yarn lint && webpack --mode development",
         "watch": "tsc -watch -p ./",
         "lint": "eslint src --ext ts",
+        "pretest": "rm -f ./out/test/suite/*.csproj",
         "test": "node ./out/test/runTest.js",
         "package": "vsce package --yarn",
         "publish": "vsce publish --yarn"

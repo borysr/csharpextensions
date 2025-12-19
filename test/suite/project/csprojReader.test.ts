@@ -1,6 +1,7 @@
 import * as assert from 'assert';
 import { beforeEach, afterEach } from 'mocha';
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 import * as sinon from 'sinon';
 
@@ -528,31 +529,47 @@ suite('CsprojReader', () => {
     targetFrameworkFixtures.forEach(({ filename, csproj, expected }) => {
         validTargetFramework.forEach((targetFramework, index) => {
             test('createFromPath returns valid CsprojReader instance', async () => {
-                const filePath = path.resolve(fixture_path, `${index}-${filename}`);
-                // actually not replaced by a mock because findProjectPaht uses findupglob.
-                fs.writeFileSync(filePath, csproj.replace('%PLACE_HOLDER%', targetFramework));
-                let framework = undefined;
-                if (expected) {
-                    const versionMatch = targetFramework.match(/(?<=net)\d+(\.\d+)*/i);
-                    framework = !versionMatch?.length || Number.isNaN(versionMatch[0]) ? false : (Number.parseFloat(versionMatch[0]) >= 6);
+                const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'csharpextensions-'));
+                const filePath = path.join(tempDir, `${index}-${filename}`);
+                try {
+                    // Not mocked because findProjectPath uses find-up-glob.
+                    fs.writeFileSync(filePath, csproj.replace('%PLACE_HOLDER%', targetFramework));
+                    let framework = undefined;
+                    if (expected) {
+                        const versionMatch = targetFramework.match(/(?<=net)\d+(\.\d+)*/i);
+                        framework = !versionMatch?.length || Number.isNaN(versionMatch[0]) ? false : (Number.parseFloat(versionMatch[0]) >= 6);
+                    }
+
+                    const result = await CsprojReader.createFromPath(filePath);
+
+                    assert.notStrictEqual(undefined, result);
+                    assert.strictEqual(result?.getFilePath(), filePath);
+                    const actual = await result?.getTargetFramework();
+                    assert.strictEqual(actual, expected?.replace('%PLACE_HOLDER%', targetFramework));
+                    const actualTest = await result?.isTargetFrameworkHigherThanOrEqualToDotNet6();
+                    assert.strictEqual(actualTest, framework);
+                } finally {
+                    if (fs.existsSync(filePath)) {
+                        fs.unlinkSync(filePath);
+                    }
+                    if (fs.existsSync(tempDir)) {
+                        fs.rmdirSync(tempDir);
+                    }
                 }
-
-                const result = await CsprojReader.createFromPath(filePath);
-
-                assert.notStrictEqual(undefined, result);
-                assert.strictEqual(result?.getFilePath(), filePath);
-                const actual = await result?.getTargetFramework();
-                assert.strictEqual(actual, expected?.replace('%PLACE_HOLDER%', targetFramework));
-                const actualTest = await result?.isTargetFrameworkHigherThanOrEqualToDotNet6();
-                assert.strictEqual(actualTest, framework);
-                fs.unlinkSync(filePath);
             });
         });
     });
 
     test('createFromPath when not existing csprj, returns undefined', async () => {
-        const filePath = `${fixture_path}/not-existing-csproj`;
-        const result = await CsprojReader.createFromPath(filePath);
-        assert.strictEqual(undefined, result);
+        const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'csharpextensions-'));
+        const filePath = path.join(tempDir, 'not-existing-csproj');
+        try {
+            const result = await CsprojReader.createFromPath(filePath);
+            assert.strictEqual(undefined, result);
+        } finally {
+            if (fs.existsSync(tempDir)) {
+                fs.rmdirSync(tempDir);
+            }
+        }
     });
 });

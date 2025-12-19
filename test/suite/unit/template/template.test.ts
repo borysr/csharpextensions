@@ -23,6 +23,8 @@ suite('Template', () => {
         TemplateType.XUnit,
         TemplateType.RazorPageClass,
         TemplateType.RazorPageTemplate,
+        TemplateType.BlazorPage,
+        TemplateType.BlazorPageClass,
         TemplateType.UWPPageClass,
         TemplateType.UWPPageXml,
         TemplateType.UWPResource,
@@ -50,6 +52,12 @@ suite('Template', () => {
                 case TemplateType.XUnit:
                 case TemplateType.RazorPageClass:
                     expectedExtension = '.cs';
+                    break;
+                case TemplateType.BlazorPageClass:
+                    expectedExtension = '.razor.cs';
+                    break;
+                case TemplateType.BlazorPage:
+                    expectedExtension = '.razor';
                     break;
                 case TemplateType.UWPPageClass:
                 case TemplateType.UWPUserControllClass:
@@ -110,6 +118,12 @@ suite('Template', () => {
                 case TemplateType.RazorPageClass:
                     expectedName = 'razor_page.cs';
                     break;
+                case TemplateType.BlazorPage:
+                    expectedName = 'blazor_page';
+                    break;
+                case TemplateType.BlazorPageClass:
+                    expectedName = 'blazor_page.cs';
+                    break;
                 case TemplateType.UWPPageClass:
                     expectedName = 'uwp_page.cs';
                     break;
@@ -168,6 +182,7 @@ suite('Template', () => {
         TemplateType.NUnit,
         TemplateType.XUnit,
         TemplateType.RazorPageClass,
+        TemplateType.BlazorPageClass,
         TemplateType.UWPPageClass,
         TemplateType.UWPUserControllClass,
         TemplateType.UWPWindowClass,

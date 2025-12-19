@@ -130,6 +130,10 @@ export default class Template {
             case TemplateType.XUnit:
             case TemplateType.RazorPageClass:
                 return '.cs';
+            case TemplateType.BlazorPageClass:
+                return '.razor.cs';
+            case TemplateType.BlazorPage:
+                return '.razor';
             case TemplateType.UWPPageClass:
             case TemplateType.UWPUserControllClass:
             case TemplateType.UWPWindowClass:
@@ -171,6 +175,10 @@ export default class Template {
                 return 'xunit';
             case TemplateType.RazorPageClass:
                 return 'razor_page.cs';
+            case TemplateType.BlazorPage:
+                return 'blazor_page';
+            case TemplateType.BlazorPageClass:
+                return 'blazor_page.cs';
             case TemplateType.UWPPageClass:
                 return 'uwp_page.cs';
             case TemplateType.UWPUserControllClass:

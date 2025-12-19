@@ -110,6 +110,9 @@ export default class TemplateConfiguration {
                     'Microsoft.AspNetCore.Mvc.RazorPages',
                     'Microsoft.Extensions.Logging',
                 ];
+            case TemplateType.BlazorPage:
+            case TemplateType.BlazorPageClass:
+                return [];
             case TemplateType.UWPPageClass:
             case TemplateType.UWPUserControllClass:
             case TemplateType.UWPWindowClass:
@@ -143,6 +146,9 @@ export default class TemplateConfiguration {
                     'System.Linq',
                     'System.Threading.Tasks',
                 ];
+            case TemplateType.BlazorPage:
+            case TemplateType.BlazorPageClass:
+                return [];
             case TemplateType.UWPPageClass:
             case TemplateType.UWPUserControllClass:
             case TemplateType.UWPWindowClass:
